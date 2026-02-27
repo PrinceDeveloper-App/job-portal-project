@@ -1,2 +1,15 @@
-# job-portal-project
-Web-based job portal platform with Employer and Admin dashboards, built using PHP, CodeIgniter, MySQL, and JavaScript. Employers can post and manage jobs across multiple countries, while admins can monitor listings and reports. Includes Stripe payment integration for premium job postings.
+# Job Portal System
+
+## Description
+Multi-country job portal with employer and admin dashboards built using PHP, CodeIgniter, MySQL, and JavaScript.
+
+## Features
+- Employer dashboard to post/manage jobs
+- Admin dashboard for reporting
+- Stripe payment integration for premium listings
+
+## Setup
+1. Clone repository
+2. Import `database.sql` into MySQL
+3. Update `application/config/database.php` with your credentials
+4. Open `index.php` in browser
