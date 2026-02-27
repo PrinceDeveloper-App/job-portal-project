@@ -1,0 +1,63 @@
+.two-line-cell .line-title {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #555;
+    }
+
+    .icon-start {
+        font-size: 14px;
+        color: #2ECC71;
+        /* optional */
+    }
+
+    .two-line-cell .line-item {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        margin-left: 20px;
+        margin-top: 4px;
+        color: #2ECC71;
+        /* aligns under text, not icon */
+    }
+
+    .activeStatus {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(59, 130, 246, 0.12);
+        font-weight: 600;
+        font-size: 0.85rem;
+    }
+    .activeStatus.active{
+        color: #22c55e;
+    }
+
+    .activeStatus.expire {
+        color: #FF0000;
+    }
+
+    .activeStatus.pause {
+        color: #b45309;
+    }
+
+    .status-switch {
+        margin-top: 10px;
+        text-align: center;
+        margin-left: 12px;
+    }
+
+    @media (max-width: 767px) {
+
+        /* Mobile-only styles here */
+        .status-switch {
+            margin-left: 0px;
+        }
+        .edit-btn{
+            margin-top: 10px;
+        }
+    }
