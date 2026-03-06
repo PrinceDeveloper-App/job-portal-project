@@ -15,9 +15,10 @@ A web-based Job Portal System that enables employers to post job listings and pu
 
 ## Technologies Used
 
-Backend: PHP / CodeIgniter
-Frontend: HTML, CSS, JavaScript, jQuery
-Database: MySQL
-Version Control: Git & GitHub
-Other Tools: DomPDF, REST APIs
+- Backend: PHP / CodeIgniter
+- Frontend: HTML, CSS, JavaScript,
+- jQuery
+- Database: MySQL
+- Version Control: Git & GitHub
+- Other Tools: DomPDF, REST APIs
 
