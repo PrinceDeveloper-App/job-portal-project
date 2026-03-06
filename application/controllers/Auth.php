@@ -97,32 +97,6 @@ class Auth extends CI_Controller
             $logindet = array("register_id" => $id_register, "login_type" => "Employer", "businessname" => $_data['businessname'], "email" => $_data['email'], "password" => $pwdnew, "activation_key" => $v, "varification_status" => "0");
             $logsuc = $this->AuthModel->insert_employer_login($logindet);
             $employeremail = $_data['email'];
-            //$config = array('mailtype' => 'html');
-            // $msg_body    =    '
-			// 	<p>Congratulations!!!</p>
-			// 	<p>Your registration has been successful.</p>
-			// 	<p>&nbsp;</p>
-			// 	<p>Explore the features of FrancoBridge Canada.</p>';
-            // //$this->load->library('email', $config);
-            // $config = array(
-            //     'protocol' => "smtp",
-            //     'smtp_crypto' => "ssl",
-            //     'email_smtp_crypto' => "ssl",
-            //     'newline'     => "\r\n",
-            //     'priority'     => 1,
-            //     'smtp_host' => "mail.francobridge.ca",
-            //     'smtp_port' => 465,
-            //     'smtp_user' => "admin@francobridge.ca",
-            //     'smtp_pass' => "z=WBcPClHN{*",
-            //     'mailtype'  => "html",
-            //     'charset'   => "iso-8859-1"
-            // );
-            // $this->load->library('email', $config);
-            // $this->email->from('admin@francobridge.ca', 'FrancoBridge Canada Registration');
-            // $this->email->to($employeremail);
-            // $this->email->subject('FrancoBridge Canada Registration');
-            // $this->email->message($msg_body);
-            // $this->email->send();
             echo $v;
         }
     }

@@ -41,17 +41,8 @@ class CI_Stripe_lib
 
 
         try {
-            // Add customer to stripe 
-            /*$customer = new \Stripe\StripeClient(
-  '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'
-);
-$customer->customers->create(array(
-   'email' => $email, 
-                'source'  => $token 
-));*/
-            // Set your secret key. Remember to switch to your live secret key in production.
-            // See your keys here: https://dashboard.stripe.com/apikeys
-            \Stripe\Stripe::setApiKey('sk_test_51SPt1WHz56QdCFhGDFDPRQJKoTJPtDTWEORXDCXjLUIVAEvtUSfxZZbGVhsBDwVmRVO5cy9vLWpXRMCm2L5RHhyd00bSR00OZI');
+            
+            \Stripe\Stripe::setApiKey('');
 
             $customer = \Stripe\Customer::create([
                 'email' => $email,
@@ -76,7 +67,7 @@ $customer->customers->create(array(
         //die();
 
         try {
-            \Stripe\Stripe::setApiKey('sk_test_51SPt1WHz56QdCFhGDFDPRQJKoTJPtDTWEORXDCXjLUIVAEvtUSfxZZbGVhsBDwVmRVO5cy9vLWpXRMCm2L5RHhyd00bSR00OZI');
+            \Stripe\Stripe::setApiKey('');
             $stripe = \Stripe\Charge::create(array(
                 'customer' => $customerId,
                 'amount'   => $itemPriceCents,
@@ -84,15 +75,6 @@ $customer->customers->create(array(
                 'description' => $itemName,
                 'statement_descriptor_suffix' => 'IKIC'
             ));
-            /*$stripe = new \Stripe\StripeClient(
-  'sk_test_51JQJmtJ3I5H6iIMWORlo2i1EkSyTg4IhKLnwiJ5eG7PiSeDBgCCwUU0etpTzv6tdccexpN5rHGTplbG5pMaWN7sv00tNXg4KSJ'
-);
-$stripe->charges->create([
-   'customer' => $customerId, 
-                'amount'   => $itemPriceCents, 
-                'currency' => $currency, 
-                'description' => $itemName
-]);*/
             $chargeJson = $stripe->jsonSerialize();
             return $chargeJson;
         } catch (Exception $e) {
@@ -105,16 +87,10 @@ $stripe->charges->create([
         echo $chargeId;
 
         try {
-            \Stripe\Stripe::setApiKey('sk_test_51SPt1WHz56QdCFhGDFDPRQJKoTJPtDTWEORXDCXjLUIVAEvtUSfxZZbGVhsBDwVmRVO5cy9vLWpXRMCm2L5RHhyd00bSR00OZI');
+            \Stripe\Stripe::setApiKey('');
             $charge = \Stripe\Charge::retrieve(array(
                 $chargeId
             ));
-            /*$charge = new \Stripe\StripeClient(
-  'sk_test_51JQJmtJ3I5H6iIMWORlo2i1EkSyTg4IhKLnwiJ5eG7PiSeDBgCCwUU0etpTzv6tdccexpN5rHGTplbG5pMaWN7sv00tNXg4KSJ'
-);
-$charge->charges->retrieve(array(
-  $chargeId,
-   ));*/
             return $charge;
         } catch (Exception $e) {
             $this->api_error = $e->getMessage();

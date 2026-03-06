@@ -96,7 +96,7 @@ class Pricing extends CI_Controller
 			$price = $postData['price'];
 			$currentjobpostcount = $postData['currentjobpostcount'];
 			$totaljobstopost = $jobstopost + $currentjobpostcount;
-			\Stripe\Stripe::setApiKey("sk_test_51SPt1WHz56QdCFhGDFDPRQJKoTJPtDTWEORXDCXjLUIVAEvtUSfxZZbGVhsBDwVmRVO5cy9vLWpXRMCm2L5RHhyd00bSR00OZI");
+			\Stripe\Stripe::setApiKey("KEY");
 
 			$customer = \Stripe\Customer::create([
 				'email' => $email,
@@ -105,7 +105,7 @@ class Pricing extends CI_Controller
 			//$customer = $this->stripe_lib->addCustomer($email, $token);
 			if ($customer) {
 
-				\Stripe\Stripe::setApiKey("sk_test_51SPt1WHz56QdCFhGDFDPRQJKoTJPtDTWEORXDCXjLUIVAEvtUSfxZZbGVhsBDwVmRVO5cy9vLWpXRMCm2L5RHhyd00bSR00OZI");
+				\Stripe\Stripe::setApiKey("KEY");
 				//$amount = 100;
 				$amount = $price * 100; // 1000
 				//$itemPriceCents = ($amount * 100);
@@ -221,7 +221,7 @@ class Pricing extends CI_Controller
 			'smtp_host' => "mail.francobridge.ca",
 			'smtp_port' => 465,
 			'smtp_user' => "admin@francobridge.ca",
-			'smtp_pass' => "AK@1369FB",
+			'smtp_pass' => "",
 			'mailtype'  => "html",
 			'charset'   => "iso-8859-1"
 		);
