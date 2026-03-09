@@ -4,6 +4,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
+require_once APPPATH . 'third_party/stripe-php/init.php'; // If using Stripe SDK via Composer
+
 class Pricing extends CI_Controller
 {
 	function __construct()
@@ -11,7 +13,6 @@ class Pricing extends CI_Controller
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->helper('form');
-		$this->load->library('stripe_lib');
 		$this->load->library('email');
 		$this->load->helper(array('cookie', 'url'));
 		$this->load->model('Pricing_model');
@@ -44,6 +45,8 @@ class Pricing extends CI_Controller
 			$data['email'] = $session_user['email'];
 			$data['loggedin'] = $session_user['loggedin'];
 			$data['logintype'] = $session_user['logintype'];
+			 echo $stripe_publishable_key = getenv('STRIPE_PUBLIC_KEY'); // or hardcode for testing
+			 die();
 			// If plain numeric ID
 			if (ctype_digit((string)$planid)) {
 				$planid = (int)$planid;
@@ -139,7 +142,7 @@ class Pricing extends CI_Controller
 					);
 					$this->Pricing_model->update_registration($packData, $registerid);
 					$invoice_no = $this->Pricing_model->get_next_invoice_number();
-                    $date = date('d-m-Y');
+					$date = date('d-m-Y');
 					$orderData = array(
 						'register_id' => $registerid,
 						'plan_id' => $planid,
@@ -213,29 +216,34 @@ class Pricing extends CI_Controller
 
 		// Email configuration
 
-		$config = array(
-			'protocol' => "smtp",
-			'smtp_crypto' => "ssl",
-			'email_smtp_crypto' => "ssl",
-			'newline' 	=> "\r\n",
-			'priority' 	=> 1,
-			'smtp_host' => "mail.francobridge.ca",
-			'smtp_port' => 465,
-			'smtp_user' => "admin@francobridge.ca",
-			'smtp_pass' => "",
-			'mailtype'  => "html",
-			'charset'   => "iso-8859-1"
-		);
-		$this->load->library('email', $config);
-		$this->email->from('admin@francobridge.ca', 'Francobridge Canada');
-		$this->email->set_mailtype("html");
-		$this->email->to($email);
-		$this->email->subject('Francobridge Canada Invoice');
-		//$message = file_get_contents(FCPATH . 'email_templates/consultation_confirm.html');
-		$message = $this->confirmation_email_message();
-		$this->email->message($message);
-		$this->email->attach($pdf_path);
-		$this->email->send();
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = getenv('SMTP_HOST');
+		$config['smtp_port'] = getenv('SMTP_PORT');
+		$config['smtp_user'] = getenv('SMTP_USER');
+		$config['smtp_pass'] = getenv('SMTP_PASS');
+		$config['mailtype'] = 'html';
+		$config['smtp_crypto'] = getenv('SMTP_ENCRYPTION');
+		$config['newline'] = "\r\n";
+		$config['crlf'] = "\r\n";
+
+		$email->setTo('mathewprincech@gmail.com');
+		$email->setSubject('Test Email');
+		$email->setMessage('This is a test.');
+		if ($email->send()) {
+			echo "Email sent successfully";
+		} else {
+			print_r($email->printDebugger());
+		}
+		// $this->load->library('email', $config);
+		// $this->email->from('admin@francobridge.ca', 'Francobridge Canada');
+		// $this->email->set_mailtype("html");
+		// $this->email->to($email);
+		// $this->email->subject('Francobridge Canada Invoice');
+		// //$message = file_get_contents(FCPATH . 'email_templates/consultation_confirm.html');
+		// $message = $this->confirmation_email_message();
+		// $this->email->message($message);
+		// $this->email->attach($pdf_path);
+		// $this->email->send();
 	}
 
 	public function confirmation_email_message()

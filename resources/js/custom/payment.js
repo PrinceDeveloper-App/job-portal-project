@@ -1,9 +1,6 @@
-<!-- Stripe JavaScript library -->
-<script src="https://js.stripe.com/v3/"></script>
 
-<script type="text/javascript">
     //const myModal = new bootstrap.Modal(document.getElementById('confirmModal'));
-    const stripe = Stripe('<?= getenv('STRIPE_PUBLIC_KEY') ?>'); // public key safe to expose
+    const stripe = Stripe(CONFIG.STRIPE_PUBLIC_KEY); // public key safe to expose
     var elements = stripe.elements();
 
     var style = {
@@ -46,7 +43,7 @@
                 var dataString = $("#form-4").serialize();
                 console.log(result);
                 $.ajax({
-                    url: '<?php echo base_url('Pricing/payment'); ?>',
+                    url: CONFIG.BASE_URL + 'Pricing/payment',
                     type: "post",
                     data: dataString,
                     beforeSend: function() {
@@ -67,4 +64,3 @@
         });
 
     });
-</script>
