@@ -96,7 +96,8 @@ class Pricing extends CI_Controller
 			$price = $postData['price'];
 			$currentjobpostcount = $postData['currentjobpostcount'];
 			$totaljobstopost = $jobstopost + $currentjobpostcount;
-			\Stripe\Stripe::setApiKey("KEY");
+			$stripeSecret = getenv('STRIPE_SECRET_KEY');
+			\Stripe\Stripe::setApiKey($stripeSecret);
 
 			$customer = \Stripe\Customer::create([
 				'email' => $email,
@@ -105,7 +106,7 @@ class Pricing extends CI_Controller
 			//$customer = $this->stripe_lib->addCustomer($email, $token);
 			if ($customer) {
 
-				\Stripe\Stripe::setApiKey("KEY");
+				\Stripe\Stripe::setApiKey($stripeSecret);
 				//$amount = 100;
 				$amount = $price * 100; // 1000
 				//$itemPriceCents = ($amount * 100);
