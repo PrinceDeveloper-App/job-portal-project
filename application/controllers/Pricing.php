@@ -45,8 +45,7 @@ class Pricing extends CI_Controller
 			$data['email'] = $session_user['email'];
 			$data['loggedin'] = $session_user['loggedin'];
 			$data['logintype'] = $session_user['logintype'];
-			 echo $stripe_publishable_key = getenv('STRIPE_PUBLIC_KEY'); // or hardcode for testing
-			 die();
+			$data['stripe_publishable_key'] = $this->config->item('stripe_publishable_key'); // or hardcode for testing
 			// If plain numeric ID
 			if (ctype_digit((string)$planid)) {
 				$planid = (int)$planid;
@@ -99,7 +98,8 @@ class Pricing extends CI_Controller
 			$price = $postData['price'];
 			$currentjobpostcount = $postData['currentjobpostcount'];
 			$totaljobstopost = $jobstopost + $currentjobpostcount;
-			$stripeSecret = getenv('STRIPE_SECRET_KEY');
+			$stripeSecret = $this->config->item('stripe_api_key');
+			//$stripeSecret = getenv('STRIPE_SECRET_KEY');
 			\Stripe\Stripe::setApiKey($stripeSecret);
 
 			$customer = \Stripe\Customer::create([
@@ -147,8 +147,8 @@ class Pricing extends CI_Controller
 						'register_id' => $registerid,
 						'plan_id' => $planid,
 						'plan_name' => $planname,
-						'plan_amount' => $amount,
-						'total_paid_amount' => $amount,
+						'plan_amount' => $price,
+						'total_paid_amount' => $price,
 						'invoice_number' => $invoice_no,
 						'payment_date' => $date
 					);
@@ -159,7 +159,7 @@ class Pricing extends CI_Controller
 						$businessname = $data['businessname'];
 						$address = $data['address'];
 					}
-					$this->send_email($email, $planname, $amount, $businessname, $address, $jobstopost, $invoice_no, $order_id);
+					$this->send_email($email, $planname, $price, $businessname, $address, $jobstopost, $invoice_no, $order_id);
 
 
 					echo "success";
@@ -171,7 +171,7 @@ class Pricing extends CI_Controller
 		//return false;
 	}
 
-	public function send_email($email, $planname, $amount, $businessname, $address, $jobstopost, $invoice_no, $order_id)
+	public function send_email($email, $planname, $price, $businessname, $address, $jobstopost, $invoice_no, $order_id)
 	{
 
 		//$invoice_no = $this->Invoice_model->get_next_invoice_number();
@@ -180,7 +180,7 @@ class Pricing extends CI_Controller
 		$invoiceData = [
 			'invoice_no' => $invoice_no,
 			'planname' => $planname,
-			'amount' => $amount,
+			'amount' => $price,
 			'businessname' => $businessname,
 			'address' => $address,
 			'jobstopost' => $jobstopost,
@@ -213,37 +213,29 @@ class Pricing extends CI_Controller
 		$this->db->where('id', $order_id);
 		$this->db->update('order_data', $data);
 
-
 		// Email configuration
 
 		$config['protocol'] = 'smtp';
-		$config['smtp_host'] = getenv('SMTP_HOST');
-		$config['smtp_port'] = getenv('SMTP_PORT');
-		$config['smtp_user'] = getenv('SMTP_USER');
-		$config['smtp_pass'] = getenv('SMTP_PASS');
+		$config['smtp_host'] = $this->config->item('SMTP_HOST');
+		$config['smtp_port'] = $this->config->item('SMTP_PORT');
+		$config['smtp_user'] = $this->config->item('SMTP_USER');
+		$config['smtp_pass'] = $this->config->item('SMTP_PASS');
 		$config['mailtype'] = 'html';
-		$config['smtp_crypto'] = getenv('SMTP_ENCRYPTION');
+		$config['smtp_crypto'] = $this->config->item('SMTP_ENCRYPTION');
+		$config['charset']     = 'utf-8';
 		$config['newline'] = "\r\n";
 		$config['crlf'] = "\r\n";
 
-		$email->setTo('mathewprincech@gmail.com');
-		$email->setSubject('Test Email');
-		$email->setMessage('This is a test.');
-		if ($email->send()) {
-			echo "Email sent successfully";
-		} else {
-			print_r($email->printDebugger());
-		}
-		// $this->load->library('email', $config);
-		// $this->email->from('admin@francobridge.ca', 'Francobridge Canada');
-		// $this->email->set_mailtype("html");
-		// $this->email->to($email);
-		// $this->email->subject('Francobridge Canada Invoice');
-		// //$message = file_get_contents(FCPATH . 'email_templates/consultation_confirm.html');
-		// $message = $this->confirmation_email_message();
-		// $this->email->message($message);
-		// $this->email->attach($pdf_path);
-		// $this->email->send();
+		$this->load->library('email', $config); // Load Email library
+		$this->email->initialize($config); // sometimes helps to re-initialize
+        $this->email->from($config['smtp_user'], 'FrancoBridge Job Portal'); // must match SMTP user
+		//$this->email->from('mathewprincech@email.com', 'Prince Mathew');
+		$this->email->to($email); // ✅ set recipient
+		$this->email->subject('Payment Confirmation With Invoice');
+		$message = $this->confirmation_email_message();
+		$this->email->message($message);
+		$this->email->attach($pdf_path);
+		$this->email->send();
 	}
 
 	public function confirmation_email_message()

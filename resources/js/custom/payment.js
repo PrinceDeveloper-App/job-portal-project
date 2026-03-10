@@ -50,12 +50,11 @@
                         $(".pay-btn").text("Wait...");
                     },
                     success: function(data) {
-                        //alert(data);
-                        console.log(data);
+                        alert(data);
                         if (data == "success") {
-                            window.location = "<?php echo base_url('Pricing/success_message/'); ?>";
+                            window.location = "https://francobridge.ca/Pricing/success_message/";
                         } else {
-                            window.location = "<?php echo base_url('Pricing/fail_message/'); ?>";
+                            window.location = "https://francobridge.ca/Pricing/fail_message/";
                         }
                     },
                     //error: function (result) { console.log("Error : "+result); }
