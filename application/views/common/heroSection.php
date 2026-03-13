@@ -27,9 +27,9 @@
                     </div> -->
                     <div class="hero-links d-flex gap-3 post-job-link" style="width: 50%;">
                         <?php if (isset($loggedin) && $loggedin == TRUE) { ?>
-                            <a href="<?php echo base_url() ?>employer/post-a-job" class="btn btn-primary post-job-btn btn-lg w-100 mb-2">Post A Job</a>
+                            <a href="<?php echo base_url() ?>employer/post-a-job" class="btn btn-primary post-job-btn btn-lg w-100 mb-2"><i class="fa-solid fa-plus"></i>&nbsp;Post A Job</a>
                         <?php } else { ?>
-                            <a href="<?php echo base_url() ?>sign-in" class="btn btn-primary post-job-btn btn-lg w-100 mb-2">Post A Job</a>
+                            <a href="<?php echo base_url() ?>sign-in" class="btn btn-primary post-job-btn btn-lg w-100 mb-2"><i class="fa-solid fa-plus"></i>&nbsp;Post A Job</a>
                         <?php } ?>
                     </div>
                 </div>

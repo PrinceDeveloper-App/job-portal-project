@@ -1,8 +1,8 @@
 <!-- Header start -->
 <?php
 if (isset($registerdata)) {
-    foreach ($registerdata as $data){
-    $job_count = $data['remaining_jobs_to_post'];
+    foreach ($registerdata as $data) {
+        $job_count = $data['remaining_jobs_to_post'];
     }
 }
 ?>
@@ -64,9 +64,9 @@ if (isset($registerdata)) {
                                 <i class="fa-solid fa-plus"></i>
                                 Post A Job</a>
                         <?php } else { ?>
-                        <a href="<?php echo base_url() ?>employer/post-a-job" class="btn btn-primary btn-lg w-100 mb-2 post-job-btn" style="margin-top: 8px;margin-right: 5px;padding: 8px 35px;">
-                            <i class="fa-solid fa-plus"></i>
-                            Post A Job</a><?php } ?>
+                            <a href="<?php echo base_url() ?>employer/post-a-job" class="btn btn-primary btn-lg w-100 mb-2 post-job-btn" style="margin-top: 8px;margin-right: 5px;padding: 8px 35px;">
+                                <i class="fa-solid fa-plus"></i>
+                                Post A Job</a><?php } ?>
                         <div class="dropdown user-dropdown">
                             <button
                                 class="btn btn-secondary dropdown-toggle"
@@ -100,10 +100,8 @@ if (isset($registerdata)) {
                             </ul>
                         </div>
                     <?php } else { ?>
-                        <a href="<?php echo base_url() ?>sign-in" class="btn btn-primary btn-lg w-100 mb-2 post-job-btn" style="margin-top: 8px;margin-right: 5px;padding: 8px 35px;">
-                            <i class="fa-solid fa-plus"></i>
-                            Post A Job</a>
-
+                        <a href="<?php echo base_url() ?>sign-in" class="btn btn-outline-primary signin-btn">Sign in</a>
+                        <a href="<?php echo base_url() ?>register" class="btn btn-primary register-btn">Register</a>
                     <?php } ?>
                 </div>
             </div>

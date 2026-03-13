@@ -214,3 +214,24 @@ body {
     padding: 10px 20px !important;
     font-size: 14px !important;
 }
+/* Sign In And Sign Up Button Styles */
+.navbar-actions .signin-btn {
+  border-color: #2563eb;
+  color: #2563eb;
+  background-color: #FFF !important;
+  border-radius: 999px !important;
+}
+.navbar-actions .signin-btn:hover {
+    color: #FFF !important;
+    background: #2563EB !important;
+}
+.navbar-actions .register-btn {
+    border-color: #2563EB !important;
+    color: #FFF !important;
+    background: #2563EB !important;
+    border-radius: 999px !important;
+}
+.navbar-actions .register-btn:hover {
+    background-color: #FFF !important;
+    color: #2563EB !important;
+}
