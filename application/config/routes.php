@@ -57,6 +57,9 @@ $route['translate_uri_dashes'] = FALSE;
 $route['about-us'] = 'AboutUs/index';
 $route['employers'] = 'Employers/index';
 $route['how-it-works'] = 'HowItWorks/index';
+$route['contact-us'] = 'ContactUs/index';
+$route['terms-of-use'] = 'Terms/index';
+$route['privacy-policy'] = 'PrivacyPolicy/index';
 ///// Auth URLS //////////////
 $route['sign-in/(:any)'] = 'auth/login/$1';
 $route['sign-in'] = 'auth/login';

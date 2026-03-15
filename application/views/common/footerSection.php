@@ -25,10 +25,10 @@
                 <div class="col-sm-6 col-lg-2">
                     <h5 class="footer-title">Legal</h5>
                     <ul class="footer-links">
-                        <li><a href="#.">Terms of Use</a></li>
-                        <li><a href="#.">Privacy Policy</a></li>
-                        <li><a href="#.">Refund Policy</a></li>
-                        <li><a href="#.">Disclaimer</a></li>
+                        <li><a href="<?php echo base_url(); ?>terms-of-use">Terms of Use</a></li>
+                        <li><a href="<?php echo base_url(); ?>privacy-policy">Privacy Policy</a></li>
+                        <li><a href="<?php echo base_url(); ?>refund-policy">Refund Policy</a></li>
+                        <li><a href="<?php echo base_url(); ?>disclaimer">Disclaimer</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-6 col-lg-4">
